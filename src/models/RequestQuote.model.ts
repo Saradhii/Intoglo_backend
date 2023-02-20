@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-//Type for Request  quote form
+//Type for Request quote form
 export type RequestQuoteType = {
     product_details : {},
     incoterms:string,
@@ -28,7 +28,7 @@ export type RequestQuoteType = {
     id:number,
 }
 
-//Schema for Request  quote form
+//Schema for Request quote form
 const RequestQuoteSchema = new Schema<RequestQuoteType>(
     {
       product_details: {
