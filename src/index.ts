@@ -1,3 +1,4 @@
+import connection from "./server/db.js"
 import express from "express";
 import dotenv from "dotenv";
 
@@ -10,9 +11,18 @@ app.use(express.json());
 
 app.get("/",(req,res)=>{
     res.send("hello");
-})
+});
 
-app.listen(process.env.PORT,()=>{
+const port = process.env.PORT;
+const url = process.env.DB;
+console.log(url);
+app.listen(port,async()=>{
+    try {
+        await connection;
+        console.log("Connected to Database Successfully &");
+      } catch (err) {
+        console.log(err);
+      }
     console.log(`Intoglo backend server is running`);
 })
 
