@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
 
-type RequestQuote = {
+//Type for Request  quote form
+export type RequestQuoteType = {
     product_details : {},
     incoterms:string,
     delivery_mode:string,
@@ -27,8 +28,8 @@ type RequestQuote = {
     id:number,
 }
 
-
-const RequestQuoteSchema = new Schema(
+//Schema for Request  quote form
+const RequestQuoteSchema = new Schema<RequestQuoteType>(
     {
       product_details: {
         name: { type: String },
@@ -230,3 +231,5 @@ const RequestQuoteSchema = new Schema(
     },
     { timestamps: true }
   );
+
+export const RequestQuoteModel = model <RequestQuoteType>("RequestQuotes",RequestQuoteSchema)
