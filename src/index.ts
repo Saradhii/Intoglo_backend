@@ -14,8 +14,6 @@ app.get("/",(req,res)=>{
 });
 
 const port = process.env.PORT;
-const url = process.env.DB;
-console.log(url);
 app.listen(port,async()=>{
     try {
         await connection;
