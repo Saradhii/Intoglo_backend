@@ -5,6 +5,7 @@ import IndianHeadings from "../ElasticQuerys/IndianHeadings.js";
 import GlobalHeadings from "../ElasticQuerys/GlobalHeadings.js";
 import GlobalSubHeadings from "../ElasticQuerys/GlobalSubHeadings.js";
 import SubHeadingsByCountry from "../ElasticQuerys/SubHeadingsByCountry.js";
+import SearchEngine from "../ElasticQuerys/SearchEngine.js";
 //Types
 import {headings_global_type} from "../types/HsCode.Types.js";
 
@@ -28,9 +29,21 @@ HSCodeRoute.get("/getsubheadings/:index", async (req, res) => {
   res.status(200).send(sub_headings_global);
 });
 
+//To get subheadings/hscode for specific country on given heading number
 HSCodeRoute.get("/gethscode/:index",async(req,res)=>{
   const hscode = await SubHeadingsByCountry(req.params.index,`${req.query.q}`);
   res.status(200).send(hscode);
+});
+
+//To search HsCode/word for auto suggestions 
+HSCodeRoute.get("/searchhs/:index", async (req, res) => {
+// Remove Special characters and unwanted spaces in given string
+  let str :string = `${req.query.q}`;
+  str = str.trim();
+  str = str.replace(/\s+/g, " ");
+  str = str.replace(/[^a-zA-Z0-9 ]/g, "");
+  const resuls = await SearchEngine(req.params.index, str);
+  res.status(200).send(resuls);
 });
 
 //To get all headings of given chapter number in globalhs
