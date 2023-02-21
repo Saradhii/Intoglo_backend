@@ -3,6 +3,7 @@ import Sections_Chapters from "../ElasticQuerys/Sections&Chapters.js";
 import IndianHeadings from "../ElasticQuerys/IndianHeadings.js";
 import GlobalHeadings from "../ElasticQuerys/GlobalHeadings.js";
 import GlobalSubHeadings from "../ElasticQuerys/GlobalSubHeadings.js";
+import SubHeadingsByCountry from "../ElasticQuerys/SubHeadingsByCountry.js";
 //Types
 import {headings_global_type} from "../types/HsCode.Types.js";
 //middleware
@@ -26,6 +27,11 @@ HSCodeRoute.get("/getheadingsindia/:index",async(req,res)=>{
 HSCodeRoute.get("/getsubheadings/:index", async (req, res) => {
   const sub_headings_global = await GlobalSubHeadings(req.params.index,`${req.query.q}`);
   res.status(200).send(sub_headings_global);
+});
+
+HSCodeRoute.get("/gethscode/:index",async(req,res)=>{
+  const hscode = await SubHeadingsByCountry(req.params.index,`${req.query.q}`);
+  res.status(200).send(hscode);
 });
 
 //To get all headings of given chapter number in globalhs
