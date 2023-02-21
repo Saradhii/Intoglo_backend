@@ -7,8 +7,12 @@ import GlobalSubHeadings from "../ElasticQuerys/GlobalSubHeadings.js";
 import SubHeadingsByCountry from "../ElasticQuerys/SubHeadingsByCountry.js";
 import SearchEngine from "../ElasticQuerys/SearchEngine.js";
 import SearchCount from "../ElasticQuerys/SearchCount.js";
+import SearchGlobalHs from "../ElasticQuerys/SearchGlobalHs.js";
+import SearchInCountry from "../ElasticQuerys/SearchInCountry.js";
+import SearchInCountryHscode from "../ElasticQuerys/SearchInCountryHscode.js";
 //Types
 import {headings_global_type} from "../types/HsCode.Types.js";
+import {globaldata} from "../types/HsCode.Types.js";
 
 const HSCodeRoute = Router();
 
@@ -55,17 +59,41 @@ HSCodeRoute.get("/searchhs/:index", async (req, res) => {
 
 //To get global data along with country data for given hscode/word
 HSCodeRoute.get("/searchglobal/:index", async (req, res) => {
-  // const { phraseSearch } = require("./routes/Globalhs");
-  // const { phraseSearch6 } = require("./routes/SearchInCountry");
-  const data = await phraseSearch(req.params.index, `${req.query.q}`, req.query.n);
-  const arr = data?.hits?.hits;
+  let n :number = parseInt(`${req.query.n}`);
+  const data:any = await SearchGlobalHs(req.params.index, `${req.query.q}`,n);
+  const arr :Array<globaldata> = data?.hits?.hits;
   for (var i = 0; i < arr.length; i++) {
-    let indianData = await phraseSearch6("indianhs", arr[i]._source.hscode);
-    let usaData = await phraseSearch6("htshs", arr[i]._source.hscode);
+    let indianData :any = await SearchInCountry("indianhs", arr[i]._source.hscode);
+    let usaData :any = await SearchInCountry("htshs", arr[i]._source.hscode);
     arr[i].indiaData = indianData?.hits?.hits;
     arr[i].usaData = usaData?.hits?.hits;
   }
   res.status(200).send(arr);
+});
+
+//To get country specific data along with global data 
+HSCodeRoute.get("/searchcountryhscode/:index", async(req,res)=>{
+  let n :number = parseInt(`${req.query.n}`);
+  const data :any = await SearchInCountryHscode(req.params.index,`${req.query.q}`,n);
+  const arr = data?.hits?.hits;
+  for(let i=0;i<arr.length;i++)
+  {
+    if(req.params.index=="indianhs")
+    {
+      let globalData= await SearchGlobalHs("globalhs", arr[i]._source.itc_hscode,0);
+      arr[i].globalData = globalData?.hits?.hits[0];
+    }
+    else if (req.params.index=="htshs")
+    {
+      var txt = arr[i]._source.htsno;
+      txt = txt.replace('.','');
+      txt = txt.replace('.','');
+      txt = txt.replace('.','');
+      let globalData= await SearchGlobalHs("globalhs", txt,0);
+      arr[i].globalData = globalData?.hits?.hits[0];
+    }
+  }
+  res.send(arr);
 });
 
 //To get all headings of given chapter number in globalhs
