@@ -11,4 +11,4 @@ const CounterSchema = new Schema<CounterType>({
 });
 
 
-export const CounterModel = model <CounterType>("RequestQuotes",CounterSchema)
+export const CounterModel = model <CounterType>("counters",CounterSchema)
