@@ -53,6 +53,21 @@ HSCodeRoute.get("/searchhs/:index", async (req, res) => {
   res.status(200).send(resuls);
 });
 
+//To get global data along with country data for given hscode/word
+HSCodeRoute.get("/searchglobal/:index", async (req, res) => {
+  // const { phraseSearch } = require("./routes/Globalhs");
+  // const { phraseSearch6 } = require("./routes/SearchInCountry");
+  const data = await phraseSearch(req.params.index, `${req.query.q}`, req.query.n);
+  const arr = data?.hits?.hits;
+  for (var i = 0; i < arr.length; i++) {
+    let indianData = await phraseSearch6("indianhs", arr[i]._source.hscode);
+    let usaData = await phraseSearch6("htshs", arr[i]._source.hscode);
+    arr[i].indiaData = indianData?.hits?.hits;
+    arr[i].usaData = usaData?.hits?.hits;
+  }
+  res.status(200).send(arr);
+});
+
 //To get all headings of given chapter number in globalhs
 HSCodeRoute.get("/getheadings/:index",async(req,res)=>{
     const headings_global : any = await GlobalHeadings(req.params.index,`${req.query.q}`);
