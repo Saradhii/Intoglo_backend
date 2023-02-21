@@ -6,6 +6,7 @@ import GlobalHeadings from "../ElasticQuerys/GlobalHeadings.js";
 import GlobalSubHeadings from "../ElasticQuerys/GlobalSubHeadings.js";
 import SubHeadingsByCountry from "../ElasticQuerys/SubHeadingsByCountry.js";
 import SearchEngine from "../ElasticQuerys/SearchEngine.js";
+import SearchCount from "../ElasticQuerys/SearchCount.js";
 //Types
 import {headings_global_type} from "../types/HsCode.Types.js";
 
@@ -35,6 +36,12 @@ HSCodeRoute.get("/gethscode/:index",async(req,res)=>{
   res.status(200).send(hscode);
 });
 
+//To get total count of searching table results
+HSCodeRoute.get("/searchglobalres/:index", async(req,res)=>{
+  const count = await SearchCount(req.params.index, `${req.query.q}`);
+  res.status(200).send(count);
+});
+
 //To search HsCode/word for auto suggestions 
 HSCodeRoute.get("/searchhs/:index", async (req, res) => {
 // Remove Special characters and unwanted spaces in given string
@@ -60,10 +67,5 @@ HSCodeRoute.get("/getheadings/:index",async(req,res)=>{
     {newArray.push(uniqueObject[i]);}
     res.status(200).send(newArray);
 })
-
-
-
-
-
 
 export default HSCodeRoute;
