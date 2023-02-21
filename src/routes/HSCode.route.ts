@@ -1,3 +1,4 @@
+import Router from "express";
 //Elastic Querys
 import Sections_Chapters from "../ElasticQuerys/Sections&Chapters.js";
 import IndianHeadings from "../ElasticQuerys/IndianHeadings.js";
@@ -6,10 +7,8 @@ import GlobalSubHeadings from "../ElasticQuerys/GlobalSubHeadings.js";
 import SubHeadingsByCountry from "../ElasticQuerys/SubHeadingsByCountry.js";
 //Types
 import {headings_global_type} from "../types/HsCode.Types.js";
-//middleware
-import Router from "express";
-const HSCodeRoute = Router();
 
+const HSCodeRoute = Router();
 
 //To get all sections & chapters from globalhs
 HSCodeRoute.get("/getsections/:index",async(req,res)=>{
