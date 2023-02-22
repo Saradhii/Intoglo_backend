@@ -11,10 +11,10 @@ const app = express();
 app.use(cors({ origin: ["http://localhost:3000","https://www.metacargo.io"] }));
 app.use(express.urlencoded({ extended:true }));
 app.use(express.json());
-app.use("/backend",HSCodeRoute);
-app.use("/backend/requestquote",RequestQuoteRoute);
+app.use("/api",HSCodeRoute);
+app.use("/api/requestquote",RequestQuoteRoute);
 
-app.get("/backend",(req,res)=>{
+app.get("/api",(req,res)=>{
     res.send("Intoglo backend server is running");
 });
 
