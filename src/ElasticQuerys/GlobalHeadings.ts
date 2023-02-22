@@ -1,8 +1,4 @@
-import {Client} from "@elastic/elasticsearch";
-
-const client = new Client({
-    node: `${process.env.ELASTIC_SEARCH}`,
-});
+import client from "../server/ElasticSearchConnection.js";
 
 const GlobalHeadings = async (_index:string,phrase:string) => {
 
