@@ -6,7 +6,7 @@ import GlobalHeadings from "../ElasticQuerys/GlobalHeadings.js";
 import GlobalSubHeadings from "../ElasticQuerys/GlobalSubHeadings.js";
 import SubHeadingsByCountry from "../ElasticQuerys/SubHeadingsByCountry.js";
 import SearchEngine from "../ElasticQuerys/SearchEngine.js";
-import SearchCount from "../ElasticQuerys/SearchCount.js";
+import SearchCount from "../ElasticQuerys/SearchCount.js"; 
 import SearchGlobalHs from "../ElasticQuerys/SearchGlobalHs.js";
 import SearchInCountry from "../ElasticQuerys/SearchInCountry.js";
 import SearchInCountryHscode from "../ElasticQuerys/SearchInCountryHscode.js";

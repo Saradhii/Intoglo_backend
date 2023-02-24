@@ -18,19 +18,54 @@ const getCountries = async function (req : Request, res:Response) {
 };
 
 const getPorts = async function (req : Request, res:Response) {
-    try {
-      let country = req.params.countryName;
+    // try {
+    //   let country = req.params.countryName;
+    //   let ports = await portModel
+    //     .find({ countryCode: country })
+    //     .select({ mainPortName: 1, latitude: 1, longitude: 1, _id: 0 });
+  
+    //   if (ports) {
+    //     ports= sortBy(ports,[function(o) { return o.mainPortName; }])
+    //     return res.status(200).send(ports);
+    //   } else {
+    //     res.status(404).send({ status: false, msg: "port list not found" });
+    //   }
+    // } catch (err:any) {
+    //   res.status(500).send({ status: false, message: err.message });
+    // }
+    try { 
+      let country:any = req.params.countryName;
+      country=country.split('-')
+      for(let i=0;i<country.length;i++) {
+        if(country[i]=="and" || country[i]=="of" || country[i]=="the" ||country[i]=="da"){
+          continue
+        }
+        else{
+          country[i]=country[i].split("")
+          country[i][0]=country[i][0].toUpperCase()
+          country[i]=country[i].join('')
+       
+        }
+      }
+      country=country.join(' ')
+  
+  console.log(country);
+  
       let ports = await portModel
         .find({ countryCode: country })
         .select({ mainPortName: 1, latitude: 1, longitude: 1, _id: 0 });
-  
-      if (ports) {
-        ports= sortBy(ports,[function(o) { return o.mainPortName; }])
-        return res.status(200).send(ports);
-      } else {
-        res.status(404).send({ status: false, msg: "port list not found" });
-      }
+       
+          if (ports) {
+            ports= sortBy(ports,[function(o) { return o.mainPortName; }])
+            return res.status(200).send(ports);
+          // } else if(ports.length===0) {
+          //   res.status(404).send({ status: false, msg: "port  not found" });
+          }
+        
+       
+        
     } catch (err:any) {
+      console.log(err);
       res.status(500).send({ status: false, message: err.message });
     }
 };
