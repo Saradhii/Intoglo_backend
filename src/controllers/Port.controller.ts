@@ -73,6 +73,8 @@ const getPorts = async function (req: Request, res: Response) {
 
 
 const getPortsDetails = async function (req: Request, res: Response) {
+ 
+
   try {
     let port = req.params.portName;
     let data:any = await portModel.find({ PortNameUUID: port });
@@ -92,4 +94,4 @@ const getPortsDetails = async function (req: Request, res: Response) {
   }
 };
 
-export { getCountries, getPorts, getPortsDetails };
+export { getCountries, getPorts, getPortsDetails};
