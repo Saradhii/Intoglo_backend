@@ -28,6 +28,6 @@ app.listen(port,async()=>{
       } catch (err) {
         console.log(err);
       }
-    console.log(`Intoglo backend server is running`);
+    console.log(`Intoglo backend server is running on port ${process.env.PORT}`);
 })
 

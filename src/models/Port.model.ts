@@ -1,8 +1,9 @@
 import { Schema, model } from "mongoose";
 
-export type PortType = {
+ export interface PortType  {
   mainPortName: string;
   countryCode: string;
+ 
   PortNameUUID: string;
   worldPortIndexNumber: string;
   regionName: string;
@@ -128,6 +129,7 @@ export type PortType = {
 
 const portSchema = new Schema<PortType>({
   PortNameUUID: String,
+
   mainPortName: {
     type: String,
   },
