@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { portModel } from "../models/Port.model.js";
 import { CountryModel } from "../models/Country.model.js";
 import sortBy from "lodash.sortby";
+import { isKeyObject } from "util/types";
 
 const getCountries = async function (req: Request, res: Response) {
   try {
@@ -58,7 +59,7 @@ const getPorts = async function (req: Request, res: Response) {
           return o.mainPortName;
         },
       ]);
-      return res.status(200).send(ports);
+      // return res.status(200).send(ports);
       // } else if(ports.length===0) {
       //   res.status(404).send({ status: false, msg: "port  not found" });
     }
@@ -69,13 +70,31 @@ const getPorts = async function (req: Request, res: Response) {
 };
 
 const getPortsDetails = async function (req: Request, res: Response) {
+ 
+
   try {
     let port = req.params.portName;
+let obj:{
+  data:object;
+  flag:string;
 
+}
     
     let data = await portModel.find({ PortNameUUID: port });
+    let countryFlag = await CountryModel.findOne({countryCode:data[0].countryCode}).select({flag:1, _id:0})
+
     
-    if (data) {
+    
+    // console.log(data)
+    
+    if (data && countryFlag) {
+   
+      console.log(Object.values(countryFlag))
+
+      // let countrycode = data[0].countryCode
+       data[0].waterDepth.countryFlag = countryFlag.flag
+      // console.log(data)
+     
       return res.status(200).send(data);
     } else {
       res.status(404).send({ status: false, msg: "port details is not found" });
@@ -85,4 +104,4 @@ const getPortsDetails = async function (req: Request, res: Response) {
   }
 };
 
-export { getCountries, getPorts, getPortsDetails };
+export { getCountries, getPorts, getPortsDetails};

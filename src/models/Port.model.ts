@@ -15,6 +15,7 @@ export type PortType = {
   standardNauticalChart: string;
   digitalNauticalChart: string;
   waterDepth: {
+    countryFlag:string;
     tidalRange: string;
     entranceWidth: string;
     channelDepth: string;
