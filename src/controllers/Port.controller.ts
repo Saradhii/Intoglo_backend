@@ -77,12 +77,15 @@ const getPortsDetails = async function (req: Request, res: Response) {
 
   try {
     let port = req.params.portName;
+   
     let data:any = await portModel.find({ PortNameUUID: port });
     if(data.length>0){
       // adding flag URl to response of portModel
-      let countryFlag:any = await CountryModel.findOne({countryCode:data[0].countryCode}).select({flag:1, _id:0})
+      
+      let countryFlag:any = await CountryModel.find({countryCode:data[0].countryCode})
        data[0]=data[0].toObject()
-       data[0].flag = countryFlag.toObject().flag.toString();         
+       data[0].flag = countryFlag[0].toObject().flag.toString();      
+   
       return res.status(200).send(data);  
     }else {
         res.status(404).send({ status: false, msg: "port details is not found" });
