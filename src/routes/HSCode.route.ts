@@ -75,6 +75,8 @@ HSCodeRoute.get("/searchglobal/:index", async (req, res) => {
 HSCodeRoute.get("/searchcountryhscode/:index", async(req,res)=>{
   let n :number = parseInt(`${req.query.n}`);
   const data :any = await SearchInCountryHscode(req.params.index,`${req.query.q}`,n);
+  console.log(data);
+  // res.send(data.hits.hits);
   const arr = data?.hits?.hits;
   for(let i=0;i<arr.length;i++)
   {
@@ -88,7 +90,7 @@ HSCodeRoute.get("/searchcountryhscode/:index", async(req,res)=>{
       var txt = arr[i]._source.htsno;
       txt = txt.replace('.','');
       txt = txt.replace('.','');
-      txt = txt.replace('.','');
+      txt = txt.replace('.',''); 
       let globalData= await SearchGlobalHs("globalhs", txt,0);
       arr[i].globalData = globalData?.hits?.hits[0];
     }
