@@ -3,8 +3,8 @@ import { Schema, model } from "mongoose";
  export interface PortType  {
   mainPortName: string;
   countryCode: string;
- 
-  PortNameUUID: string;
+  portNameUUID: string;
+  CountryNameUUID: string;
   worldPortIndexNumber: string;
   regionName: string;
   alternatePortName: string;
@@ -52,7 +52,7 @@ import { Schema, model } from "mongoose";
   firstPortofEntry: string;
   usRepresentative: string;
   quarantine: {
-    qratique: string;
+    pratique: string;
     sanitation: string;
     other: string;
   };
@@ -127,9 +127,10 @@ import { Schema, model } from "mongoose";
   };
   updatedAt: string;
 };
-
+ 
 const portSchema = new Schema<PortType>({
-  PortNameUUID: String,
+  portNameUUID: String,
+  CountryNameUUID: String,
 
   mainPortName: {
     type: String,

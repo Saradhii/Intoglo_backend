@@ -12,4 +12,4 @@ const CountrySchema = new Schema<Countries>({
     CountryNameUUID:String
 })
 // const CountrySchema = new Schema();
-export const CountryModel = model("countrys",CountrySchema);
+export const CountryModel = model("countries",CountrySchema);
