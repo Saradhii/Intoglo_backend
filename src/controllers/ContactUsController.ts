@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import {citiesListModel} from "../models/CitiesListModel.js"
 import {countriesListModel} from "../models/CountriesListModel.js"
 import {statesListModel} from "../models/StatesListModel.js"
-
 import {requestCallbackModel} from '../models/RequestCallback.model.js'
 
 export const submitForm= async function (req: Request, res: Response) {

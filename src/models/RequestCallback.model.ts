@@ -36,6 +36,6 @@ const CallbackFormSchema = new Schema<CallbackFormType>({
     },
   updatedAt: String,
 });
-export const requestCallbackModel = model<CallbackFormType>("requestallback", CallbackFormSchema);
+export const requestCallbackModel = model<CallbackFormType>("requestcallback", CallbackFormSchema);
 
 
