@@ -8,6 +8,7 @@ const getCountries = async function (req: Request, res: Response) {
   try {
     let countries:any = await CountryModel.find().lean();
     if (countries.length > 0) {
+      
       countries = sortBy(countries, [function (o) {return o.countryCode}]);
       return res.status(200).send(countries);
 
@@ -60,6 +61,7 @@ const getPortsDetails = async function (req: Request, res: Response) {
         res.status(404).send({ status: false, msg: "port details is not found" });
       }
   } catch (err: any) {
+    
     console.log(err);
     
     res.status(500).send({ status: false, message: err.message });

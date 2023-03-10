@@ -5,6 +5,7 @@ import cors from "cors";
 import HSCodeRoute from "./routes/HSCode.route.js";
 import RequestQuoteRoute from "./routes/RequestQuote.route.js";
 import PortsRoute from "./routes/Ports.route.js";
+import ContactUsRoute from "./routes/ContactUs.js";
 
 
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use("/api",HSCodeRoute);
 app.use("/api/requestquote",RequestQuoteRoute);
 app.use("/api",PortsRoute);
+app.use("/api",ContactUsRoute);
 
 app.get("/api",(req,res)=>{
     res.send("Intoglo backend server is running");
