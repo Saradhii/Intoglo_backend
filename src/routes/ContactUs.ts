@@ -4,7 +4,7 @@ import {submitForm,getCountries,getStates,getCities} from "../controllers/Contac
 
 ContactUsRoute.post("/contact-us/submit-form",submitForm)
 ContactUsRoute.get("/contact-us/countries",getCountries)
-ContactUsRoute.get("/contact-us/states",getStates)
-ContactUsRoute.get("/contact-us/cities",getCities)
+ContactUsRoute.get("/contact-us/:countryName/states",getStates)
+ContactUsRoute.get("/contact-us/:stateName/cities",getCities)
 
 export default ContactUsRoute;

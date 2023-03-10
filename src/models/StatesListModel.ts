@@ -24,4 +24,4 @@ const statesListSchema = new Schema<StatesType>({
    
 })
 
-export const statesListModel = model<StatesType>("citiesList", statesListSchema);
+export const statesListModel = model<StatesType>("statesList", statesListSchema);

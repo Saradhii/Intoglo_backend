@@ -28,4 +28,4 @@ const citiesListSchema = new Schema<CitiesType>({
     wikiDataId:String,
 })
 
-export const citiesListModel = model<CitiesType>("citiesList", citiesListSchema);
+export  const citiesListModel = model<CitiesType>("citiesLists", citiesListSchema);
