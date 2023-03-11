@@ -6,11 +6,9 @@ import {requestCallbackModel} from '../models/RequestCallback.model.js';
 import {CallbackFormType} from "../models/RequestCallback.model.js"
 
 export const submitForm= async function (req: Request, res: Response) {
-
     try {
         let data:any = await requestCallbackModel.create(req.body)
         return res.status(201).send({ status: true, message: "Submission successfull", data })
-    
     } catch (error:any) {
         return res.status(500).send({ status: false, message: error.message });
     }

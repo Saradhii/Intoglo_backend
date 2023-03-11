@@ -2,7 +2,6 @@ import { Schema, model } from "mongoose";
 
  export interface CallbackFormType  {
   
-    userDetails:{
         firstName:String,
         lastName:String,
         companyName:String,
@@ -14,14 +13,10 @@ import { Schema, model } from "mongoose";
         city:String,
         annualInternationalFreightShipments:String,
         message:String
-    }
-  updatedAt: string;
 };
  
 
 const CallbackFormSchema = new Schema<CallbackFormType>({
-  
-    userDetails:{
         firstName:String,
         lastName:String,
         companyName:String,
@@ -31,11 +26,20 @@ const CallbackFormSchema = new Schema<CallbackFormType>({
         country:String,
         state:String,
         city:String,
-        annualInternationalFreightShipments:String,
+        annualInternationalFreightShipments:{
+          type:String,
+          enum:[
+            "I'm a logistics provider" ,
+            '500+',
+            '100-499',
+            '25-99',
+            'Less than 25',
+            "None - I'm a first time shipper",
+            "None - I don't ship freight"
+          ]
+        },
         message:String,
-    },
-  updatedAt: String,
-});
+},{ timestamps: true });
 export const requestCallbackModel = model<CallbackFormType>("requestcallback", CallbackFormSchema);
 
 
