@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import {citiesListModel} from "../models/CitiesListModel.js"
 import {countriesListModel} from "../models/CountriesListModel.js"
 import {statesListModel} from "../models/StatesListModel.js"
-import {requestCallbackModel} from '../models/RequestCallback.model.js'
+import {requestCallbackModel} from '../models/RequestCallback.model.js';
+import {CallbackFormType} from "../models/RequestCallback.model.js"
 
 export const submitForm= async function (req: Request, res: Response) {
 
@@ -12,6 +13,14 @@ export const submitForm= async function (req: Request, res: Response) {
     
     } catch (error:any) {
         return res.status(500).send({ status: false, message: error.message });
+    }
+}
+export const getQuotes = async (req:Request,res:Response)=>{
+    try{
+        let quotes :any = await requestCallbackModel.find();
+        return res.status(201).send({status:true,message:"Fetched data successfully",quotes})
+    }catch(error:any){
+        return res.status(500).send({status:false,message:error.message});
     }
 }
 export const getCountries= async function (req: Request, res: Response) {
